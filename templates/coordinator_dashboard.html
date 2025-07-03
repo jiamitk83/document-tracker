@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coordinator Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+<div class="container mt-5">
+    <h2 class="text-center">👩‍🏫 Coordinator Dashboard</h2>
+
+    <h4 class="mt-4">Documents for Review</h4>
+    {% if documents %}
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Teacher</th>
+                <th>File</th>
+                <th>Status</th>
+                <th>Version</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for doc in documents %}
+            <tr>
+                <td>{{ doc.title }}</td>
+                <td>{{ doc.teacher_name }}</td>
+                <td><a href="{{ url_for('uploaded_file', filename=doc.filename) }}" target="_blank">View</a></td>
+                <td>{{ doc.status }}</td>
+                <td>{{ doc.version }}</td>
+                <td>
+                    <form method="POST" action="/coordinator_action/{{ doc.id }}">
+                        <select name="status" class="form-select mb-1" required>
+                            <option value="">--Choose--</option>
+                            <option value="Approved">Approve</option>
+                            <option value="Changes Requested">Request Changes</option>
+                            <option value="Rejected">Reject</option>
+                        </select>
+                        <textarea name="feedback" class="form-control mb-1" placeholder="Feedback..." required></textarea>
+                        <button class="btn btn-primary btn-sm" type="submit">Submit</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No documents available for review.</p>
+    {% endif %}
+
+    <a href="/logout" class="btn btn-danger mt-4">Logout</a>
+</div>
+</body>
+</html>

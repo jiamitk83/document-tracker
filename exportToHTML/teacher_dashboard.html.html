@@ -1,0 +1,96 @@
+<html>
+<head>
+<title>teacher_dashboard.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bababa;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+teacher_dashboard.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;!DOCTYPE </span><span class="s2">html</span><span class="s0">&gt;</span>
+<span class="s0">&lt;html </span><span class="s2">lang</span><span class="s3">=&quot;en&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+    <span class="s0">&lt;meta </span><span class="s2">charset</span><span class="s3">=&quot;UTF-8&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;title&gt;</span><span class="s1">Teacher Dashboard</span><span class="s0">&lt;/title&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot; </span><span class="s2">href</span><span class="s3">=&quot;https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body </span><span class="s2">class</span><span class="s3">=&quot;bg-light&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;container mt-5&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;h2 </span><span class="s2">class</span><span class="s3">=&quot;text-center&quot;</span><span class="s0">&gt;</span><span class="s1">👨‍🏫 Welcome, {{ user_name }}</span><span class="s0">&lt;/h2&gt;</span>
+    <span class="s0">&lt;p </span><span class="s2">class</span><span class="s3">=&quot;text-center&quot;</span><span class="s0">&gt;</span><span class="s1">Role: {{ user_role | capitalize }}</span><span class="s0">&lt;/p&gt;</span>
+
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;card mt-4&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;card-header&quot;</span><span class="s0">&gt;</span><span class="s1">📄 Submit Document</span><span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;card-body&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;form </span><span class="s2">method</span><span class="s3">=&quot;POST&quot; </span><span class="s2">action</span><span class="s3">=&quot;{{ url_for('teacher_dashboard') }}&quot; </span><span class="s2">enctype</span><span class="s3">=&quot;multipart/form-data&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;mb-3&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label&gt;</span><span class="s1">Document Title:</span><span class="s0">&lt;/label&gt;</span>
+                    <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;text&quot; </span><span class="s2">name</span><span class="s3">=&quot;title&quot; </span><span class="s2">class</span><span class="s3">=&quot;form-control&quot; </span><span class="s2">required</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;mb-3&quot;</span><span class="s0">&gt;</span>
+                    <span class="s0">&lt;label&gt;</span><span class="s1">Upload Document:</span><span class="s0">&lt;/label&gt;</span>
+                    <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;file&quot; </span><span class="s2">name</span><span class="s3">=&quot;document&quot; </span><span class="s2">class</span><span class="s3">=&quot;form-control&quot; </span><span class="s2">required</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;/div&gt;</span>
+                <span class="s0">&lt;button </span><span class="s2">type</span><span class="s3">=&quot;submit&quot; </span><span class="s2">class</span><span class="s3">=&quot;btn btn-primary&quot;</span><span class="s0">&gt;</span><span class="s1">Submit Document</span><span class="s0">&lt;/button&gt;</span>
+            <span class="s0">&lt;/form&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+
+    <span class="s0">&lt;h4 </span><span class="s2">class</span><span class="s3">=&quot;mt-5&quot;</span><span class="s0">&gt;</span><span class="s1">📑 Your Submitted Documents</span><span class="s0">&lt;/h4&gt;</span>
+    <span class="s1">{% if documents %}</span>
+        <span class="s0">&lt;table </span><span class="s2">class</span><span class="s3">=&quot;table table-bordered table-striped mt-3&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;thead&gt;</span>
+                <span class="s0">&lt;tr&gt;</span>
+                    <span class="s0">&lt;th&gt;</span><span class="s1">Title</span><span class="s0">&lt;/th&gt;</span>
+                    <span class="s0">&lt;th&gt;</span><span class="s1">File</span><span class="s0">&lt;/th&gt;</span>
+                    <span class="s0">&lt;th&gt;</span><span class="s1">Status</span><span class="s0">&lt;/th&gt;</span>
+                    <span class="s0">&lt;th&gt;</span><span class="s1">Coordinator Feedback</span><span class="s0">&lt;/th&gt;</span>
+                    <span class="s0">&lt;th&gt;</span><span class="s1">Principal Feedback</span><span class="s0">&lt;/th&gt;</span>
+                    <span class="s0">&lt;th&gt;</span><span class="s1">Version</span><span class="s0">&lt;/th&gt;</span>
+                    <span class="s0">&lt;th&gt;</span><span class="s1">Stage</span><span class="s0">&lt;/th&gt;</span>
+                <span class="s0">&lt;/tr&gt;</span>
+            <span class="s0">&lt;/thead&gt;</span>
+            <span class="s0">&lt;tbody&gt;</span>
+                <span class="s1">{% for doc in documents %}</span>
+                <span class="s0">&lt;tr&gt;</span>
+                    <span class="s0">&lt;td&gt;</span><span class="s1">{{ doc.title }}</span><span class="s0">&lt;/td&gt;</span>
+                    <span class="s0">&lt;td&gt;</span>
+                        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;{{ url_for('uploaded_file', filename=doc.filename) }}&quot; </span><span class="s2">target</span><span class="s3">=&quot;_blank&quot;</span><span class="s0">&gt;</span>
+                            <span class="s1">{{ doc.filename }}</span>
+                        <span class="s0">&lt;/a&gt;</span>
+                    <span class="s0">&lt;/td&gt;</span>
+                    <span class="s0">&lt;td&gt;</span>
+                        <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;badge bg-{{ 'success' if doc.status == 'Approved' else 'warning' if doc.status == 'Pending' else 'danger' }}&quot;</span><span class="s0">&gt;</span>
+                            <span class="s1">{{ doc.status }}</span>
+                        <span class="s0">&lt;/span&gt;</span>
+                    <span class="s0">&lt;/td&gt;</span>
+                    <span class="s0">&lt;td&gt;</span><span class="s1">{{ doc.coordinator_feedback or 'N/A' }}</span><span class="s0">&lt;/td&gt;</span>
+                    <span class="s0">&lt;td&gt;</span><span class="s1">{{ doc.principal_feedback or 'N/A' }}</span><span class="s0">&lt;/td&gt;</span>
+                    <span class="s0">&lt;td&gt;</span><span class="s1">{{ doc.version }}</span><span class="s0">&lt;/td&gt;</span>
+                    <span class="s0">&lt;td&gt;</span><span class="s1">{{ doc.stage }}</span><span class="s0">&lt;/td&gt;</span>
+                <span class="s0">&lt;/tr&gt;</span>
+                <span class="s1">{% endfor %}</span>
+            <span class="s0">&lt;/tbody&gt;</span>
+        <span class="s0">&lt;/table&gt;</span>
+    <span class="s1">{% else %}</span>
+        <span class="s0">&lt;p </span><span class="s2">class</span><span class="s3">=&quot;text-muted mt-3&quot;</span><span class="s0">&gt;</span><span class="s1">You haven't submitted any documents yet.</span><span class="s0">&lt;/p&gt;</span>
+    <span class="s1">{% endif %}  </span><span class="s4">&lt;!-- ✅ This line was missing --&gt;</span>
+
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;mt-4&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;/logout&quot; </span><span class="s2">class</span><span class="s3">=&quot;btn btn-danger&quot;</span><span class="s0">&gt;</span><span class="s1">Logout</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span>
+</pre>
+</body>
+</html>
